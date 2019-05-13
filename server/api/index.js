@@ -20,19 +20,19 @@ const Candy = require('../db/models/Candy');
 // middleware will generate a 404, and send it to your
 // error-handling endware!
 
-router.get('/candies', (req, res, next) => {
+router.get('/candies', async (req, res, next) => {
   try {
-    const data = Candy.findAll();
+    const data = await Candy.findAll();
     res.send(data);
   } catch (error) {
     next(error);
   }
 });
 
-router.get('/candies/:name', (req, res, next) => {
+router.get('/candies/:name', async (req, res, next) => {
   const candyName = req.params.name;
   try {
-    let data = Candy.findOne({
+    let data = await Candy.findOne({
       where: {
         name: candyName,
       },
@@ -41,8 +41,6 @@ router.get('/candies/:name', (req, res, next) => {
   } catch (error) {
     next(error);
   }
-  //candy name = req.params.name
-  //find one where name === candy name
   res.body();
 });
 
